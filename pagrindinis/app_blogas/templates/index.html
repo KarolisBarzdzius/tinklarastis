@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% for field in field_list %}
+    <h1>Pavadinimas: {{ field.title }}</h1>
+    <h4>Autorius: {{ field.author }}</h4>
+    <p>Sukurta: {{ field.time|date:"F d, Y H:i"}}</p>
+    <h3>Tekstas: {{ field.cut_text | safe }}</h3>
+    <p>Komentarai: {{ field.comments_number }}</p>
+    <p><a href="{{ field.id }}">daugiau</a></p>
+    </hr>
+    {% endfor %}
+
+
+
+    <div>
+        {% if field_list.has_other_pages %}
+                <ul>
+                    {% for i in field_list.paginator.page_range %}
+                        {% if field_list.number == i %}
+                            <li>
+                                <a href="">{{ i }}</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+        {% endif %}
+    </div>
+    <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; pirmas</a>
+            <a href="?page={{ page_obj.previous_page_number }}">atgal</a>
+        {% endif %}
+
+        <span class="current">
+            {{ page_obj.number }} iš {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">pirmyn</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">paskutinis &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

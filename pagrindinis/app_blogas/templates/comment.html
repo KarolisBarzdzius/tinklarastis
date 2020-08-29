@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Pavadinimas: {{ field.title }}</h1>
+    <h4>Autorius: {{ field.author }}</h4>
+    <p>Sukurta: {{ field.time|date:"F d, Y H:i"}}</p>
+    <h3>Tekstas: {{ field.text | safe }}</h3>
+    <p>Komentarai: {{ field.comments_number }}</p>
+        {% for comment in field.comment.all %}
+            <li>{{ comment|safe }}</li>
+        {% endfor %}
+{% endblock %}

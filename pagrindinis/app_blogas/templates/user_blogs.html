@@ -1,0 +1,18 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Mano irasai</h1>
+
+    {% if field_list %}
+    <ul>
+      {% for order in field_list %}
+      <li>
+        <a href="{% url 'blogai' order.pk %}">{{order.title}}</a> ({{ order.time }}) ({{ order.author }})
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no .</p>
+    {% endif %}
+{% endblock %}
